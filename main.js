@@ -1,49 +1,49 @@
 const form = document.getElementById('form-atividade');
 const imgAprovado = '<img src="./images/aprovado.png" alt="emoji celebração"/>';
-const imgReprovado  = '<img src= "./images/reprovado.png" alt="emoji decepção"/>';
+const imgReprovado = '<img src= "./images/reprovado.png" alt="emoji decepção"/>';
 const Atividades = [];
-const Notas = []; 
+const Notas = [];
 const spanAprovado = '<span class="resultado Aprovado">Aprovado</span>';
 const spanReprovado = '<span class= "resultado Reprovado">Reprovado</span>';
 const notaMinima = parseFloat(prompt("digite a nota minima"));
 
 let linhas = '';
 
-form.addEventListener("submit", function (e){
+form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     adcionarLinha();
     atualizaTabela();
     atualizaMediaFinal();
-    
+
 })
 
 
 function adcionarLinha() {
-    const inputNomeAtividade = document.getElementById ('Nome-Atividade');
+    const inputNomeAtividade = document.getElementById('Nome-Atividade');
     const inputNotaAtividade = document.getElementById('Nota-Atividade');
-    
-    
-    if (Atividades.includes (inputNomeAtividade.value)){
+
+
+    if (Atividades.includes(inputNomeAtividade.value)) {
         alert(`A atividade: ${inputNomeAtividade.value} já foi inserida`);
-        
+
     } else {
 
         Atividades.push(inputNomeAtividade.value);
         Notas.push(parseFloat(inputNotaAtividade.value));
-    
-        
+
+
         let linha = '<tr>'
         linha += `<td> ${inputNomeAtividade.value} </td>`;
-        linha += `<td>${inputNotaAtividade.value} </td>` ;
+        linha += `<td>${inputNotaAtividade.value} </td>`;
         linha += `<td>${inputNotaAtividade.value >= notaMinima ? imgAprovado : imgReprovado} </td>`;
         linha += '</tr>';
         linhas += linha;
     }
-    
-   
 
-    
+
+
+
 
     inputNomeAtividade.value = '';
     inputNotaAtividade.value = '';
@@ -57,17 +57,17 @@ function atualizaTabela() {
 
 function atualizaMediaFinal() {
     const mediaFinal = calculaMediaFinal();
-    
-    document.getElementById('media-final-valor') .innerHTML =mediaFinal;
-    document.getElementById ('media-final-resultado') .innerHTML = mediaFinal >= notaMinima ? spanAprovado : spanReprovado;
- 
+
+    document.getElementById('media-final-valor').innerHTML = mediaFinal.toFixed(2);
+    document.getElementById('media-final-resultado').innerHTML = mediaFinal >= notaMinima ? spanAprovado : spanReprovado;
+
 }
 
 function calculaMediaFinal() {
     let somaDasNotas = 0;
 
     for (let i = 0; i < Notas.length; i++) {
-        somaDasNotas += Notas [i];
+        somaDasNotas += Notas[i];
     }
     return somaDasNotas / Notas.length;
 
